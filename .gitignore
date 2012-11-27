@@ -1,3 +1,8 @@
+# Folders #
+bin
+lib
+
+*.DS_Store
 *.class
 
 # Package Files #
