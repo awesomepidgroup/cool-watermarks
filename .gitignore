@@ -1,10 +1,10 @@
 # Regular files & folders #
 *.DS_Store
 *.pydevproject
-# .project # Esta nos interesa
+.project
 .metadata
 bin/**
-# lib/** # Esta nos interesa
+lib/**
 tmp/**
 tmp/**/*
 *.tmp
@@ -32,6 +32,6 @@ local.properties
 *.class
 
 # Package files #
-# *.jar # Esta nos interesa
+*.jar
 *.war
 *.ear
