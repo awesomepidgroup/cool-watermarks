@@ -1,0 +1,49 @@
+Explicacion de los metodos usados en PID
+(Textos sacados de la user guide)
+
+29.6.5 Remove Outliers
+
+Replaces a pixel by the median of the pixels in the surrounding if it deviates from the median by more than a certain value (the threshold). Useful for correcting, e.g., hot pixels or dead pixels of a CCD camera.
+Radius Determines the area (uncalibrated, i.e., in pixels) used for calculating the median.
+Threshold Determines by how much the pixel must deviate from the median to get replaced, in raw (uncalibrated) units.
+Which Outliers Determines whether pixels brighter or darker than the surrounding (the median) should be replaced.
+
+Clase --> ij --> plugin --> filters -->  RankFilters.java (tipo remove outliers)
+
+29.14 Subtract Background
+
+Removes smooth continuous backgrounds from gels and other images. Based on the concept of the ‘rolling ball’ algorithm described in Sternberg Stanley, Biomedical image processing, IEEE Computer, Jan 1983). Imagine that the 2D grayscale image has a third dimension (height) by the image value at every point in the image, creating a surface. A ball of given radius is rolled over the bottom side of this surface; the hull of the volume reachable by the ball is the background to be subtracted.
+
+Clase --> ij --> plugin --> filters -->  BackgroundSubtracter.java
+
+29.13 Image Calculator
+
+Performs arithmetic and logical operations between two images selected from popup menus described in the Image operations↓ table. Image1 or both Image1 and Image2 can be stacks. If both are stacks, they must have the same number of slices. Image1 and Image2 do not have to be the same data type or the same size.
+With 32-bit (float) images, pixels resulting from division by zero are set to Infinity, or to NaN (Not a Number) if a zero pixel is divided by zero.
+Operation Selects one of the thirteen available operators (see Image operations↓).
+Create New Window If checked, a new image is created to hold the result. If unchecked, the result of the operation is applied directly to Image1.
+32-bit (float) Result If checked, source images will be converted to 32-bit floating point before performing the operation.
+Help Opens http://imagej.nih.gov/ij/docs/menus/ process.html#calculator.
+
+Clase --> ij --> process --> ImageProcessor.java
+
+29.3 Find Edges
+
+Uses a Sobel edge detector to highlight sharp changes in intensity in the active image or selection. Two 3 × 3 convolution kernels (shown below) are used to generate vertical and horizontal derivatives. The final image is produced by combining the two derivatives using the square root of the sum of the squares.
+
+Clase --> ij --> process --> ByteProcessor.java --> method filter(int type)
+
+29.8.1 Make Binary
+
+Converts an image to black and white. If a threshold has been set using the Image▷Adjust▷Threshold… [T]↑ tool, the depicted dialog is displayed. The value of the Black foreground, white background checkbox reflects and sets the global Black Background value of Process▷Binary▷Options…↓
+If a threshold has not been set, Make Binary↑ will analyze the histogram of the current selection, or of the entire image if no selection is present, and set an automatic threshold level to create the binary image (‘Auto-thresholding’ is displayed in the Status bar, cf. Threshold… [T]↑).
+With stacks the Convert to Mask↓ dialog box is displayed. Note that for non-thresholded images and stacks Make Binary↑ and Convert to Mask↓ behave similarly.
+Edit▷Selection▷Convert to Mask↓, 21: Creating Binary Masks↓, 23: Interpreting Binary Images↓
+
+Clase --> ij --> plugin --> filters --> Binary.java
+
+9.11.4 Median…
+
+Reduces noise in the active image by replacing each pixel with the median of the neighboring pixel values.
+
+Clase --> ij --> plugin --> filters --> RankFilters.java (tipo median)
