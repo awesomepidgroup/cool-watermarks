@@ -10,7 +10,9 @@ public class Example implements Runnable {
 	private JFrame frame;
 	private Toolkit tk;
 	private JToolBar tb;
-	private JButton chickenButton;
+	private JButton closeButton;
+	private JButton openButton;
+	private JFileChooser fc;
 	private JMenuBar mb;
 	private JMenuItem m11;
 	private JMenuItem m22;
@@ -56,8 +58,20 @@ public class Example implements Runnable {
 		tb = new JToolBar();
 		tb.setFloatable(false);
 		
-		chickenButton = new JButton("Close");
-		chickenButton.addActionListener(new ActionListener() {
+		openButton = new JButton("Open");
+		openButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				fc = new JFileChooser();
+				fc.showOpenDialog(frame);
+				
+				System.out.println(fc.getSelectedFile().getAbsolutePath());
+			}
+			
+		});
+		
+		closeButton = new JButton("Close");
+		closeButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent event) {
 				System.exit(0);
@@ -65,7 +79,8 @@ public class Example implements Runnable {
 			
 		});
 		
-		tb.add(chickenButton);
+		tb.add(openButton);
+		tb.add(closeButton);
 		
 		// Creating the file menu
 		JMenu m1 = new JMenu("File");
@@ -112,19 +127,24 @@ public class Example implements Runnable {
 			}
 
 		});
+		
+		// Setting image
+		//ImageIcon cat = new ImageIcon("example.jpg");
+		//JLabel catLabel = new JLabel(cat);
 
 		// Adding components to the panel
 		panel.add(label);
 		panel.add(tf);
 		panel.add(send);
 		panel.add(reset);
-
+		//panel.add(catLabel);
+		
 		// Text area at the Center
 		ta = new JTextArea();
-
+		
 		// Adding components and properties to the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(400, 400);
+		frame.setSize(600, 600);
 		frame.setResizable(false);
 		Dimension size = tk.getScreenSize();
 		frame.setLocation((size.width - frame.getWidth())/2, (size.height - frame.getHeight())/2);
@@ -138,5 +158,4 @@ public class Example implements Runnable {
 		frame.getContentPane().add(BorderLayout.SOUTH, panel);
 		frame.setVisible(true);
 	}
-
 }
