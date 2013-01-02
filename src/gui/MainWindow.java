@@ -30,6 +30,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
+
 public class MainWindow {
 
 	private JFrame frame;
@@ -114,12 +115,15 @@ public class MainWindow {
 		int frameYSize = 0;
 		if (osName.indexOf("mac") >= 0) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
+			
+			frameXSize = 694;
+			frameYSize = 472;
 		} else if(osName.indexOf("windows") >= 0) {
 			frameXSize = 700;
 			frameYSize = 500;
 		}
 		
-		String separator = File.separator;
+		final String separator = File.separator;
 		Image icon = null;
 		try {
 			icon = ImageIO.read(new File("resources" + separator + "icon.png"));
@@ -178,7 +182,7 @@ public class MainWindow {
 		Icon iconPrevious = new ImageIcon("resources" + separator +"previous.png");
 		Icon iconNext = new ImageIcon("resources" + separator +"next.png");
 		Icon iconToEnd = new ImageIcon("resources" + separator +"last.png");
-				
+		
 		tbbtnOpen = new JButton();
 		tbbtnOpen.setToolTipText("Open");
 		tbbtnOpen.setIcon(iconOpen);
@@ -250,7 +254,7 @@ public class MainWindow {
 		panelExplanation.setLayout(null);
 		panel.add(panelExplanation);
 		
-		Color backgroundColor = lblOriginal.getBackground();
+		Color backgroundColor = toolBar.getBackground();
 		Font normalFont = lblOriginal.getFont();
 		textExplanation = new JTextArea();
 		textExplanation.setBounds(5, 15, 320, 131);
@@ -280,7 +284,7 @@ public class MainWindow {
 		btnPrevious.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				setText("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit.", textExplanation);
+				setText("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie.", textExplanation);
 			}
 			
 		});
@@ -291,7 +295,7 @@ public class MainWindow {
 		btnNext.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				setResultImage("testImages\\result.jpg");
+				setResultImage("testImages" + separator + "result.jpg");
 			}
 			
 		});
@@ -302,11 +306,30 @@ public class MainWindow {
 		btnToEnd.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				setOriginalImage("testImages\\original.jpg");
+				setOriginalImage("testImages" + separator + "original.jpg");
 			}
 			
 		});
 		panel.add(btnToEnd);
+		
+		if (osName.indexOf("mac") >= 0) {
+			LineBorder tbbtnBorder = new LineBorder(backgroundColor, 4, true);
+			
+			tbbtnOpen.setBackground(backgroundColor);
+			tbbtnOpen.setBorder(tbbtnBorder);
+			
+			tbbtnSave.setBackground(backgroundColor);
+			tbbtnSave.setBorder(tbbtnBorder);
+			
+			tbbtnPrevious.setBackground(backgroundColor);
+			tbbtnPrevious.setBorder(tbbtnBorder);
+			
+			tbbtnNext.setBackground(backgroundColor);
+			tbbtnNext.setBorder(tbbtnBorder);
+			
+			tbbtnToEnd.setBackground(backgroundColor);
+			tbbtnToEnd.setBorder(tbbtnBorder);
+		}
 	}
 	
 	private void setImage(String imagePath, JLabel label) {
