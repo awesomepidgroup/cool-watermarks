@@ -111,12 +111,13 @@ public class MainWindow {
 		}
 		
 		String osName = System.getProperty("os.name").toLowerCase();
+		System.out.println(osName);
 		
-		int frameWidth = 0;
-		int frameHeight = 0;
+		int frameWidth = 700;
+		int frameHeight = 500;
 		
-		int btnYPos = 0;
-		int btnHeight = 0;
+		int btnYPos = 386;
+		int btnHeight = 23;
 		
 		if (osName.indexOf("mac") >= 0) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -126,12 +127,13 @@ public class MainWindow {
 			
 			btnYPos = 383;
 			btnHeight = 29;
+		} else if(osName.indexOf("linux") >= 0) {
+			frameWidth = 694;
+			frameHeight = 475;
 		} else if(osName.indexOf("windows") >= 0) {
-			frameWidth = 700;
-			frameHeight = 500;
-			
-			btnYPos = 386;
-			btnHeight = 23;
+			/*
+			 * All the parameters by default.
+			 */
 		}
 		
 		final String separator = File.separator;
@@ -295,7 +297,7 @@ public class MainWindow {
 		btnPrevious.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				setText("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie.", textExplanation);
+				setText("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel.", textExplanation);
 			}
 			
 		});
