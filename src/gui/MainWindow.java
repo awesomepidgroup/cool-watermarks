@@ -109,6 +109,16 @@ public class MainWindow {
 			e.printStackTrace();
 		}
 		
+		String osName = System.getProperty("os.name").toLowerCase();
+		int frameXSize = 0;
+		int frameYSize = 0;
+		if (osName.indexOf("mac") >= 0) {
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+		} else if(osName.indexOf("windows") >= 0) {
+			frameXSize = 700;
+			frameYSize = 500;
+		}
+		
 		String separator = File.separator;
 		Image icon = null;
 		try {
@@ -122,7 +132,7 @@ public class MainWindow {
 		
 		toolkit = frame.getToolkit();
 		
-		frame.setSize(700, 500);
+		frame.setSize(frameXSize, frameYSize);
 		frame.setResizable(false);
 		
 		Dimension screenDimension = toolkit.getScreenSize();
@@ -235,7 +245,7 @@ public class MainWindow {
 		panelOriginal.add(lblOriginal);
 				
 		panelExplanation = new JPanel();
-		panelExplanation.setBounds(10, 226, 330, 139);
+		panelExplanation.setBounds(10, 226, 330, 151);
 		panelExplanation.setBorder(new TitledBorder(new LineBorder(new Color(150, 150, 150), 1, true), "Explanation of the next step", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelExplanation.setLayout(null);
 		panel.add(panelExplanation);
@@ -243,7 +253,7 @@ public class MainWindow {
 		Color backgroundColor = lblOriginal.getBackground();
 		Font normalFont = lblOriginal.getFont();
 		textExplanation = new JTextArea();
-		textExplanation.setBounds(5, 15, 320, 119);
+		textExplanation.setBounds(5, 15, 320, 131);
 		textExplanation.setWrapStyleWord(true);
 		textExplanation.setLineWrap(true);
 		textExplanation.setAutoscrolls(true);
@@ -254,19 +264,19 @@ public class MainWindow {
 		panelExplanation.add(textExplanation);
 		
 		panelResult = new JPanel();
-		panelResult.setBounds(350, 11, 334, 388);
+		panelResult.setBounds(350, 11, 334, 400);
 		panelResult.setBorder(new TitledBorder(new LineBorder(new Color(150, 150, 150), 1, true), "Result", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelResult.setLayout(null);
 		panel.add(panelResult);
 		
 		lblResult = new JLabel();
-		lblResult.setBounds(5, 15, 324, 368);
+		lblResult.setBounds(5, 15, 324, 380);
 		lblResult.setVerticalAlignment(JLabel.CENTER);
 		lblResult.setHorizontalAlignment(JLabel.CENTER);
 		panelResult.add(lblResult);
 		
 		btnPrevious = new JButton("Previous");
-		btnPrevious.setBounds(10, 376, 89, 23);
+		btnPrevious.setBounds(10, 388, 89, 23);
 		btnPrevious.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -277,7 +287,7 @@ public class MainWindow {
 		panel.add(btnPrevious);
 		
 		btnNext = new JButton("Next");
-		btnNext.setBounds(133, 376, 89, 23);
+		btnNext.setBounds(130, 388, 89, 23);
 		btnNext.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -288,7 +298,7 @@ public class MainWindow {
 		panel.add(btnNext);
 		
 		btnToEnd = new JButton("To end");
-		btnToEnd.setBounds(251, 376, 89, 23);
+		btnToEnd.setBounds(251, 388, 89, 23);
 		btnToEnd.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {

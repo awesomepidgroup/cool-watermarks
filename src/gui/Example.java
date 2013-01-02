@@ -36,8 +36,10 @@ public class Example implements Runnable {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-
-		if (System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0) {
+		
+		String osName = System.getProperty("os.name").toLowerCase();
+		System.out.println(osName);
+		if (osName.indexOf("mac") >= 0) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
 
@@ -158,4 +160,5 @@ public class Example implements Runnable {
 		frame.getContentPane().add(BorderLayout.SOUTH, panel);
 		frame.setVisible(true);
 	}
+	
 }
