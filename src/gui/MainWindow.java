@@ -111,16 +111,27 @@ public class MainWindow {
 		}
 		
 		String osName = System.getProperty("os.name").toLowerCase();
-		int frameXSize = 0;
-		int frameYSize = 0;
+		
+		int frameWidth = 0;
+		int frameHeight = 0;
+		
+		int btnYPos = 0;
+		int btnHeight = 0;
+		
 		if (osName.indexOf("mac") >= 0) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 			
-			frameXSize = 694;
-			frameYSize = 470;
+			frameWidth = 694;
+			frameHeight = 470;
+			
+			btnYPos = 383;
+			btnHeight = 29;
 		} else if(osName.indexOf("windows") >= 0) {
-			frameXSize = 700;
-			frameYSize = 500;
+			frameWidth = 700;
+			frameHeight = 500;
+			
+			btnYPos = 386;
+			btnHeight = 23;
 		}
 		
 		final String separator = File.separator;
@@ -136,7 +147,7 @@ public class MainWindow {
 		
 		toolkit = frame.getToolkit();
 		
-		frame.setSize(frameXSize, frameYSize);
+		frame.setSize(frameWidth, frameHeight);
 		frame.setResizable(false);
 		
 		Dimension screenDimension = toolkit.getScreenSize();
@@ -280,7 +291,7 @@ public class MainWindow {
 		panelResult.add(lblResult);
 		
 		btnPrevious = new JButton("Previous");
-		btnPrevious.setBounds(10, 386, 89, 23);
+		btnPrevious.setBounds(10, btnYPos, 89, btnHeight);
 		btnPrevious.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -291,7 +302,7 @@ public class MainWindow {
 		panel.add(btnPrevious);
 		
 		btnNext = new JButton("Next");
-		btnNext.setBounds(130, 386, 89, 23);
+		btnNext.setBounds(130, btnYPos, 89, btnHeight);
 		btnNext.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -302,7 +313,7 @@ public class MainWindow {
 		panel.add(btnNext);
 		
 		btnToEnd = new JButton("To end");
-		btnToEnd.setBounds(251, 386, 89, 23);
+		btnToEnd.setBounds(251, btnYPos, 89, btnHeight);
 		btnToEnd.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
