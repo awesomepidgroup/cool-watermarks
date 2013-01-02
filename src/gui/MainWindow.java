@@ -117,7 +117,7 @@ public class MainWindow {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 			
 			frameXSize = 694;
-			frameYSize = 472;
+			frameYSize = 470;
 		} else if(osName.indexOf("windows") >= 0) {
 			frameXSize = 700;
 			frameYSize = 500;
@@ -237,7 +237,7 @@ public class MainWindow {
 		panel.setLayout(null);
 				
 		panelOriginal = new JPanel();
-		panelOriginal.setBounds(10, 11, 330, 204);
+		panelOriginal.setBounds(10, 9, 330, 204);
 		panelOriginal.setBorder(new TitledBorder(new LineBorder(new Color(150, 150, 150), 1, true), "Original", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelOriginal.setLayout(null);
 		panel.add(panelOriginal);
@@ -249,7 +249,7 @@ public class MainWindow {
 		panelOriginal.add(lblOriginal);
 				
 		panelExplanation = new JPanel();
-		panelExplanation.setBounds(10, 226, 330, 151);
+		panelExplanation.setBounds(10, 224, 330, 151);
 		panelExplanation.setBorder(new TitledBorder(new LineBorder(new Color(150, 150, 150), 1, true), "Explanation of the next step", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelExplanation.setLayout(null);
 		panel.add(panelExplanation);
@@ -268,7 +268,7 @@ public class MainWindow {
 		panelExplanation.add(textExplanation);
 		
 		panelResult = new JPanel();
-		panelResult.setBounds(350, 11, 334, 400);
+		panelResult.setBounds(350, 9, 334, 400);
 		panelResult.setBorder(new TitledBorder(new LineBorder(new Color(150, 150, 150), 1, true), "Result", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelResult.setLayout(null);
 		panel.add(panelResult);
@@ -280,7 +280,7 @@ public class MainWindow {
 		panelResult.add(lblResult);
 		
 		btnPrevious = new JButton("Previous");
-		btnPrevious.setBounds(10, 388, 89, 23);
+		btnPrevious.setBounds(10, 386, 89, 23);
 		btnPrevious.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -291,7 +291,7 @@ public class MainWindow {
 		panel.add(btnPrevious);
 		
 		btnNext = new JButton("Next");
-		btnNext.setBounds(130, 388, 89, 23);
+		btnNext.setBounds(130, 386, 89, 23);
 		btnNext.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -302,7 +302,7 @@ public class MainWindow {
 		panel.add(btnNext);
 		
 		btnToEnd = new JButton("To end");
-		btnToEnd.setBounds(251, 388, 89, 23);
+		btnToEnd.setBounds(251, 386, 89, 23);
 		btnToEnd.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
