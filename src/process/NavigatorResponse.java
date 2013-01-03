@@ -8,6 +8,7 @@ package process;
 public class NavigatorResponse {
 	
 	private String imagePath;
+	private Boolean save;
 	private Boolean previous;
 	private Boolean next;
 	private Boolean toEnd;
@@ -60,4 +61,14 @@ public class NavigatorResponse {
 	public void setStepExplanation(String stepExplanation) {
 		this.stepExplanation = stepExplanation;
 	}
+
+	public boolean isSave() {
+		return save;
+	}
+
+	public void setSave(boolean save) {
+		this.save = save;
+	}
+	
+	
 }
