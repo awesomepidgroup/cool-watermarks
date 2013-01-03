@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -66,6 +67,8 @@ public class MainWindow {
 	private JButton btnPrevious;
 	private JButton btnNext;
 	private JButton btnToEnd;
+	
+	private JFileChooser fileChooser;
 
 	/**
 	 * Create the application.
@@ -144,9 +147,23 @@ public class MainWindow {
 		menuBar.add(mnFile);
 		
 		mntmOpen = new JMenuItem("Open...");
+		mntmOpen.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				openFile();
+			}
+			
+		});
 		mnFile.add(mntmOpen);
 		
 		mntmSave = new JMenuItem("Save as...");
+		mntmSave.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				saveFile();
+			}
+			
+		});
 		mnFile.add(mntmSave);
 		
 		mnFile.addSeparator();
@@ -179,11 +196,25 @@ public class MainWindow {
 		tbbtnOpen = new JButton();
 		tbbtnOpen.setToolTipText("Open");
 		tbbtnOpen.setIcon(iconOpen);
+		tbbtnOpen.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				openFile();
+			}
+			
+		});
 		toolBar.add(tbbtnOpen);
 		
 		tbbtnSave = new JButton();
 		tbbtnSave.setToolTipText("Save");
 		tbbtnSave.setIcon(iconSave);
+		tbbtnSave.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				saveFile();
+			}
+			
+		});
 		toolBar.add(tbbtnSave);
 		
 		toolBar.addSeparator();
@@ -194,7 +225,7 @@ public class MainWindow {
 		tbbtnPrevious.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				setText("", textExplanation);
+				previous();
 			}
 			
 		});
@@ -206,7 +237,7 @@ public class MainWindow {
 		tbbtnNext.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				deleteImage(lblResult);
+				next();
 			}
 			
 		});
@@ -218,7 +249,7 @@ public class MainWindow {
 		tbbtnToEnd.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				deleteImage(lblOriginal);
+				toEnd();
 			}
 			
 		});
@@ -277,7 +308,7 @@ public class MainWindow {
 		btnPrevious.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				setText("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel.", textExplanation);
+				previous();
 			}
 			
 		});
@@ -288,7 +319,7 @@ public class MainWindow {
 		btnNext.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				setResultImage("testImages" + separator + "result.jpg");
+				next();
 			}
 			
 		});
@@ -299,11 +330,13 @@ public class MainWindow {
 		btnToEnd.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				setOriginalImage("testImages" + separator + "original.jpg");
+				toEnd();
 			}
 			
 		});
 		panel.add(btnToEnd);
+		
+		setButtonsEnabled(false, false, false, false);
 		
 		if (osName.indexOf("mac") >= 0) {
 			LineBorder tbbtnBorder = new LineBorder(backgroundColor, 4, true);
@@ -323,6 +356,55 @@ public class MainWindow {
 			tbbtnToEnd.setBackground(backgroundColor);
 			tbbtnToEnd.setBorder(tbbtnBorder);
 		}
+	}
+	
+	private void setButtonsEnabled(Boolean save, Boolean previous, Boolean next, Boolean toEnd) {
+		mntmSave.setEnabled(save);
+		tbbtnSave.setEnabled(save);
+		
+		tbbtnPrevious.setEnabled(previous);
+		btnPrevious.setEnabled(previous);
+		
+		tbbtnNext.setEnabled(next);
+		btnNext.setEnabled(next);
+		
+		tbbtnToEnd.setEnabled(toEnd);
+		btnToEnd.setEnabled(toEnd);
+	}
+	
+	private void openFile() {
+		fileChooser = new JFileChooser();
+		int isValid = fileChooser.showOpenDialog(frame);
+		
+		if(isValid == JFileChooser.APPROVE_OPTION) {
+			String path = fileChooser.getSelectedFile().getAbsolutePath();
+			//AQUI VA LA LLAMADA AL NAVIGATOR String explanation = navigator.open(path);
+			setImage(path, lblOriginal);
+			//AQUI PONEMOS EL TEXTO A LA EXPLICACION setText(explanation, textExplanation);
+			setButtonsEnabled(false, false, true, true);
+		}
+	}
+	
+	private void saveFile() {
+		fileChooser = new JFileChooser();
+		int isValid = fileChooser.showSaveDialog(frame);
+		
+		if(isValid == JFileChooser.APPROVE_OPTION) {
+			String path = fileChooser.getSelectedFile().getAbsolutePath();
+			//AQUI VA LA LLAMADA AL NAVIGATOR navigator.save(path);
+		}
+	}
+	
+	private void previous() {
+		
+	}
+	
+	private void next() {
+		
+	}
+	
+	private void toEnd() {
+		
 	}
 	
 	private void setImage(String imagePath, JLabel label) {
@@ -387,26 +469,6 @@ public class MainWindow {
 	
 	private void setText(String text, JTextArea textArea ) {
 		textArea.setText(text);
-	}
-	
-	public void setOriginalImage(String imagePath) {
-		setImage(imagePath, lblOriginal);
-	}
-	
-	public void setResultImage(String imagePath) {
-		setImage(imagePath, lblResult);
-	}
-	
-	public void setExplanationText(String text) {
-		setText(text, textExplanation);
-	}
-	
-	public void deleteOriginalImage() {
-		deleteImage(lblOriginal);
-	}
-	
-	public void deleteResultImage() {
-		deleteImage(lblResult);
 	}
 	
 }

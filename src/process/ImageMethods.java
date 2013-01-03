@@ -5,16 +5,6 @@ import ij.plugin.ImageCalculator;
 
 public class ImageMethods {
 	
-	/*public static void main(String[] args) {
-		removeOutliers("original.jpg", "1.jpg");
-		subtractBackground("1.jpg", "2,jpg");
-		imageCalculator("1.jpg", "2.jpg", "3.jpg");
-		findEdges("3.jpg", "4.jpg");
-		makeBinary("4.jpg", "5.jpg");
-		median("5.jpg", "6.jpg");
-		System.out.println("Ya!");
-	}*/
-	
 	public static void removeOutliers(String inPath, String outPath) {
 		ImagePlus image = IJ.openImage(inPath);
 		
@@ -85,6 +75,6 @@ public class ImageMethods {
 		
 		IJ.saveAs(image, "jpg", outPath);
 		image.close();
-	}	
+	}
 	
 }

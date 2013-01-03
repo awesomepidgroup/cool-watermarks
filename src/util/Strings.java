@@ -5,11 +5,9 @@ package util;
 	de los pasos realizados para la obtención de
 	la nueva imagen.
 */
-
-public static class Strings {
+public class Strings {
 
 	public static String getExplanation(int index) {
-		
 		String result = "";
 
 		if(index == 1) {
