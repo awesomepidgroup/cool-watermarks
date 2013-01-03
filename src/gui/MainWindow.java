@@ -3,7 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -29,7 +28,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
-
 
 public class MainWindow {
 
@@ -70,28 +68,11 @@ public class MainWindow {
 	private JButton btnToEnd;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			
-			public void run() {
-				try {
-					MainWindow window = new MainWindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public MainWindow() {
 		initialize();
+		frame.setVisible(true);
 	}
 
 	/**
@@ -111,7 +92,6 @@ public class MainWindow {
 		}
 		
 		String osName = System.getProperty("os.name").toLowerCase();
-		System.out.println(osName);
 		
 		int frameWidth = 700;
 		int frameHeight = 500;
