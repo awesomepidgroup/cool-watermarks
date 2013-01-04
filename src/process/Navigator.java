@@ -8,15 +8,17 @@ import util.Strings;
 
 public class Navigator {
 	
-	private Map<Integer, NavigatorResponse> stepList;
 	private int index;
+	private int lastIndex;
+	private Map<Integer, NavigatorResponse> stepList;
 	private String originalPath;
 	private String tempFolder;
 	private ImageMethods methods;
 	
 	public Navigator(String path) {
-		this.stepList = new HashMap<Integer, NavigatorResponse>(7);
 		this.index = 0;
+		this.lastIndex = 6;
+		this.stepList = new HashMap<Integer, NavigatorResponse>(lastIndex + 1);
 		this.originalPath = path;
 		
 		tempFolder = "temp";
@@ -43,15 +45,18 @@ public class Navigator {
 		NavigatorResponse response = stepList.get(index);
 
 		try {
-		
-			FileOutputStream saveFile = new FileOutputStream(path);
-			ObjectOutputStream save = ObjectOutputStream(saveFile);
-			File image = new File(path);
-
-			save.writeObject(image);
-
-			save.close();
-
+			InputStream input = new FileInputStream(response.getImagePath());
+			OutputStream output = new FileOutputStream(path);
+			
+			byte[] buffer = new byte[1024];
+			int length;
+			
+			while ((length = input.read(buffer)) > 0) {
+			   output.write(buffer, 0, length);
+			}
+			
+			input.close();
+			output.close();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -64,14 +69,16 @@ public class Navigator {
 		response = stepList.get(index);
 		
 		if(response == null) {
-			if(index == 6) {
+			if(index == lastIndex) {
 				String filePath = methods.invoke(index);
 				String explanation = Strings.getExplanation(index);
 				response = new NavigatorResponse(filePath, true, true, false, false, explanation);
+				stepList.put(index, response);
 			} else {
 				String filePath = methods.invoke(index);
 				String explanation = Strings.getExplanation(index);
 				response = new NavigatorResponse(filePath, true, true, true, true, explanation);
+				stepList.put(index, response);
 			}
 		}
 		
@@ -80,21 +87,19 @@ public class Navigator {
 	
 	
 	public NavigatorResponse previous(){
-		NavigatorResponse response = null;
-
 		index--;
-		response = stepList.get(index);
+		NavigatorResponse response = stepList.get(index);
 
-		return reponse;
+		return response;
 	}
 	
 	public NavigatorResponse toEnd(){
 		NavigatorResponse response = null;
-
-		for(int = 0; i < 7; i++) {
+		
+		for(int i = index; i < lastIndex; i++) {
 			response = next();
 		}
-
+		
 		return response;
 	}
 		

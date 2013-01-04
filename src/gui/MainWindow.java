@@ -47,7 +47,6 @@ public class MainWindow {
 	private JMenuItem mntmOpen;
 	private JMenuItem mntmSave;
 	private JMenuItem mntmExit;
-	private JMenuItem mntmAboutTheAuthors;
 	private JMenuItem mntmAbout;
 	
 	private JToolBar toolBar;
@@ -154,7 +153,7 @@ public class MainWindow {
 		mntmOpen.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				openFile();
+				open();
 			}
 			
 		});
@@ -164,7 +163,7 @@ public class MainWindow {
 		mntmSave.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				saveFile();
+				save();
 			}
 			
 		});
@@ -177,11 +176,6 @@ public class MainWindow {
 		
 		mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
-		
-		mntmAboutTheAuthors = new JMenuItem("About the authors...");
-		mnHelp.add(mntmAboutTheAuthors);
-		
-		mnHelp.addSeparator();
 		
 		mntmAbout = new JMenuItem("About...");
 		mnHelp.add(mntmAbout);
@@ -203,7 +197,7 @@ public class MainWindow {
 		tbbtnOpen.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				openFile();
+				open();
 			}
 			
 		});
@@ -215,7 +209,7 @@ public class MainWindow {
 		tbbtnSave.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				saveFile();
+				save();
 			}
 			
 		});
@@ -386,7 +380,7 @@ public class MainWindow {
 		}
 	}
 	
-	private void openFile() {
+	private void open() {
 		fileChooser = new JFileChooser();
 		int isValid = fileChooser.showOpenDialog(frame);
 		
@@ -401,7 +395,7 @@ public class MainWindow {
 		}
 	}
 	
-	private void saveFile() {
+	private void save() {
 		fileChooser = new JFileChooser();
 		int isValid = fileChooser.showSaveDialog(frame);
 		
@@ -457,32 +451,13 @@ public class MainWindow {
 		}
 		
 		if(!higherLabelHeight && !higherLabelWidth) {
-			/*int diffWidth = Math.abs(labelWidth - imageWidth);
-			int diffHeight = Math.abs(labelHeight - imageHeight);*/
 			
-			/*if(diffHeight < diffWidth) {*/
 			if(imageAspect < labelAspect) {
-				System.out.println("Image: " + imageWidth + " " + imageHeight);
-				System.out.println("ImageAspect: " + imageAspect);
-				System.out.println("Label: " + labelWidth + " " + labelHeight);
-				//System.out.println("Diffs: " + diffWidth + " " + diffHeight);
-				System.out.println("LabelAspect: " + labelAspect);
-				
 				finalImageWidth = labelWidth;
 				finalImageHeight = (int) (finalImageWidth * imageAspect);
-				
-				System.out.println("FinalImage: " + finalImageWidth + " " + finalImageHeight);
 			} else {
-				System.out.println("Image: " + imageWidth + " " + imageHeight);
-				System.out.println("ImageAspect: " + imageAspect);
-				System.out.println("Label: " + labelWidth + " " + labelHeight);
-				//System.out.println("Diffs: " + diffWidth + " " + diffHeight);
-				System.out.println("LabelAspect: " + labelAspect);
-				
 				finalImageHeight = labelHeight;
 				finalImageWidth = (int) (finalImageHeight / imageAspect);
-				
-				System.out.println("FinalImage: " + finalImageWidth + " " + finalImageHeight);
 			}
 			
 		} else if(!higherLabelHeight && higherLabelWidth) {
