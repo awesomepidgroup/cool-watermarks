@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -16,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -175,12 +177,24 @@ public class MainWindow {
 		mnFile.addSeparator();
 		
 		mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+		});
 		mnFile.add(mntmExit);
 		
 		mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
 		
 		mntmAbout = new JMenuItem("About...");
+		mntmAbout.addActionListener((new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				about();
+			}
+		}));
 		mnHelp.add(mntmAbout);
 		
 		toolBar = new JToolBar();
@@ -429,6 +443,31 @@ public class MainWindow {
 	private void toEnd() {		
 		NavigatorResponse response = navigator.toEnd();
 		setGUIFromResponse(response);
+	}
+	
+	/**
+	 * Hecho con un JTextArea para ir captando la idea. Se deberia discutir
+	 * para usar mejor un JPanel, insertar algun logo, etc.
+	 */
+	
+	private void about() {
+		JDialog modalDialog = new JDialog(frame, "About Cool-Watermarks", ModalityType.DOCUMENT_MODAL);
+		
+		JTextArea aboutText = new JTextArea();
+		Font normalFont = lblOriginal.getFont();
+		aboutText = new JTextArea();
+		aboutText.setWrapStyleWord(true);
+		aboutText.setLineWrap(true);
+		aboutText.setAutoscrolls(true);
+		aboutText.setEditable(false);
+		aboutText.setBorder(null);
+		aboutText.setFont(normalFont);
+		aboutText.setText("Texto sobre los autores");
+		
+		modalDialog.add(aboutText);
+		modalDialog.setSize(300, 200);
+		modalDialog.setLocationRelativeTo(frame);
+		modalDialog.setVisible(true);
 	}
 	
 	private void setImage(String imagePath, JLabel label) {
