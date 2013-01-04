@@ -23,10 +23,13 @@ public class Navigator {
 		
 		tempFolder = "temp";
 		File folder = new File(tempFolder);
-		boolean exists = folder.exists();
-		if(!exists) {
-			folder.mkdir();
+		if(folder.exists()) {
+			for(File f : folder.listFiles()) {
+				f.delete(); //We suppose that always is a file
+			}
+			folder.delete();
 		}
+		folder.mkdir();
 		
 		this.methods = new ImageMethods(originalPath, tempFolder + File.separator);
 	}
@@ -64,8 +67,8 @@ public class Navigator {
 	
 	public NavigatorResponse next(){
 		NavigatorResponse response = null;
-		
 		index++;
+		
 		response = stepList.get(index);
 		
 		if(response == null) {

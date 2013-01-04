@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -29,6 +30,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import process.Navigator;
 import process.NavigatorResponse;
@@ -354,6 +357,7 @@ public class MainWindow {
 			tbbtnToEnd.setBackground(backgroundColor);
 			tbbtnToEnd.setBorder(tbbtnBorder);
 		}
+		
 	}
 	
 	private void setButtonsEnabled(Boolean save, Boolean previous, Boolean next, Boolean toEnd) {
@@ -397,10 +401,13 @@ public class MainWindow {
 	
 	private void save() {
 		fileChooser = new JFileChooser();
+		FileFilter pngFilter = new FileNameExtensionFilter("PNG file", "png");
+		fileChooser.addChoosableFileFilter(pngFilter);
+		
 		int isValid = fileChooser.showSaveDialog(frame);
 		
 		if(isValid == JFileChooser.APPROVE_OPTION) {
-			String path = fileChooser.getSelectedFile().getAbsolutePath();
+			String path = fileChooser.getSelectedFile().getAbsolutePath() + ".png"; //CUIDADO CON ESTO
 			navigator.save(path);
 		}
 	}
@@ -411,11 +418,15 @@ public class MainWindow {
 	}
 	
 	private void next() {
+		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		
 		NavigatorResponse response = navigator.next();
 		setGUIFromResponse(response);
+		
+		frame.setCursor(Cursor.getDefaultCursor());
 	}
 	
-	private void toEnd() {
+	private void toEnd() {		
 		NavigatorResponse response = navigator.toEnd();
 		setGUIFromResponse(response);
 	}
