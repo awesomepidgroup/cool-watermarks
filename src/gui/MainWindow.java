@@ -438,6 +438,7 @@ public class MainWindow {
 		
 		int labelWidth = label.getWidth();
 		int labelHeight = label.getHeight();
+		double labelAspect = (double) labelHeight / labelWidth;
 		
 		int finalImageWidth = 0;
 		int finalImageHeight = 0;
@@ -454,15 +455,32 @@ public class MainWindow {
 		}
 		
 		if(!higherLabelHeight && !higherLabelWidth) {
-			int diffWidth = Math.abs(labelWidth - imageWidth);
-			int diffHeight = Math.abs(labelHeight - imageHeight);
+			/*int diffWidth = Math.abs(labelWidth - imageWidth);
+			int diffHeight = Math.abs(labelHeight - imageHeight);*/
 			
-			if(diffHeight < diffWidth) {
+			/*if(diffHeight < diffWidth) {*/
+			if(imageAspect < labelAspect) {
+				System.out.println("Image: " + imageWidth + " " + imageHeight);
+				System.out.println("ImageAspect: " + imageAspect);
+				System.out.println("Label: " + labelWidth + " " + labelHeight);
+				//System.out.println("Diffs: " + diffWidth + " " + diffHeight);
+				System.out.println("LabelAspect: " + labelAspect);
+				
 				finalImageWidth = labelWidth;
 				finalImageHeight = (int) (finalImageWidth * imageAspect);
+				
+				System.out.println("FinalImage: " + finalImageWidth + " " + finalImageHeight);
 			} else {
+				System.out.println("Image: " + imageWidth + " " + imageHeight);
+				System.out.println("ImageAspect: " + imageAspect);
+				System.out.println("Label: " + labelWidth + " " + labelHeight);
+				//System.out.println("Diffs: " + diffWidth + " " + diffHeight);
+				System.out.println("LabelAspect: " + labelAspect);
+				
 				finalImageHeight = labelHeight;
 				finalImageWidth = (int) (finalImageHeight / imageAspect);
+				
+				System.out.println("FinalImage: " + finalImageWidth + " " + finalImageHeight);
 			}
 			
 		} else if(!higherLabelHeight && higherLabelWidth) {

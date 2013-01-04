@@ -17,11 +17,10 @@ public class ImageMethods {
 	private String mbName;
 	private String mName;
 	
-	
 	public ImageMethods(String originalPath, String tempFolder) {
 		this.originalPath = originalPath;
 		
-		String[] splitedPath = originalPath.split(File.separator);
+		String[] splitedPath = originalPath.split("\\" + File.separator);
 		this.originalName = splitedPath[splitedPath.length - 1];
 		
 		this.roName = tempFolder + originalName + "1ro.png";
