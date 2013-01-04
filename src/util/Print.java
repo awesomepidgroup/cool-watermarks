@@ -1,7 +1,7 @@
 package util;
 
 /**
-	Clase Log, usada para la monitorización
+	Clase Print, usada para la monitorización
 	del flujo del código.
 */
 public class Print {
