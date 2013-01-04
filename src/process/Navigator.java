@@ -1,6 +1,6 @@
 package process;
 
-import java.io.File;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +40,21 @@ public class Navigator {
 	
 	
 	public void save(String path){
-			
+		NavigatorResponse response = stepList.get(index);
+
+		try {
+		
+			FileOutputStream saveFile = new FileOutputStream(path);
+			ObjectOutputStream save = ObjectOutputStream(saveFile);
+			File image = new File(path);
+
+			save.writeObject(image);
+
+			save.close();
+
+		} catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public NavigatorResponse next(){
@@ -66,12 +80,22 @@ public class Navigator {
 	
 	
 	public NavigatorResponse previous(){
-		
-		return null;
+		NavigatorResponse response = null;
+
+		index--;
+		response = stepList.get(index);
+
+		return reponse;
 	}
 	
-	public void toEnd(){
-		
+	public NavigatorResponse toEnd(){
+		NavigatorResponse response = null;
+
+		for(int = 0; i < 7; i++) {
+			response = next();
+		}
+
+		return response;
 	}
 		
 }

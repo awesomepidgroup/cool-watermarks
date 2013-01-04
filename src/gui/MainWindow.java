@@ -407,12 +407,13 @@ public class MainWindow {
 		
 		if(isValid == JFileChooser.APPROVE_OPTION) {
 			String path = fileChooser.getSelectedFile().getAbsolutePath();
-			//AQUI VA LA LLAMADA AL NAVIGATOR navigator.save(path);
+			navigator.save(path);
 		}
 	}
 	
 	private void previous() {
-		
+		NavigatorResponse response = navigator.previous();
+		setGUIFromResponse(response);
 	}
 	
 	private void next() {
@@ -421,7 +422,8 @@ public class MainWindow {
 	}
 	
 	private void toEnd() {
-		
+		NavigatorResponse response = navigator.toEnd();
+		setGUIFromResponse(response);
 	}
 	
 	private void setImage(String imagePath, JLabel label) {
