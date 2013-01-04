@@ -1,56 +1,67 @@
 package process;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import util.Strings;
 
-
-
 public class Navigator {
-
-	private List<NavigatorResponse> lista_procesos;
-	private int indice;
-	private String original_path;
 	
+	private Map<Integer, NavigatorResponse> stepList;
+	private int index;
+	private String originalPath;
+	private String tempFolder;
+	private ImageMethods methods;
 	
-	
-	public String open(String path){
+	public Navigator(String path) {
+		this.stepList = new HashMap<Integer, NavigatorResponse>(7);
+		this.index = 0;
+		this.originalPath = path;
 		
-		lista_procesos= new LinkedList<NavigatorResponse>();
-		indice=1;
-		original_path=path;
-		String texto=Strings.getExplanation(indice);
+		tempFolder = "temp";
+		File folder = new File(tempFolder);
+		boolean exists = folder.exists();
+		if(!exists) {
+			folder.mkdir();
+		}
 		
-		return texto;
+		this.methods = new ImageMethods(originalPath, tempFolder + File.separator);
+	}
+	
+	public NavigatorResponse open(){
+		String explanation = Strings.getExplanation(index);
+		NavigatorResponse response = new NavigatorResponse("", false, false, true, true, explanation);
+		
+		stepList.put(index, response);
+		
+		return response;
 	}
 	
 	
 	public void save(String path){
-		
-		
+			
 	}
 	
 	public NavigatorResponse next(){
+		NavigatorResponse response = null;
 		
-		NavigatorResponse nr = null;
+		index++;
+		response = stepList.get(index);
 		
-		switch (indice) {
-		case 1:
-			
-			ImageMethods.removeOutliers(original_path, "1.jpg");
-			String texto=Strings.getExplanation(indice + 1);
-			nr= new NavigatorResponse("1.jpg", false, true, true, texto);
-			lista_procesos.add(nr);
-			
-			break;
-
-		default:
-			break;
+		if(response == null) {
+			if(index == 6) {
+				String filePath = methods.invoke(index);
+				String explanation = Strings.getExplanation(index);
+				response = new NavigatorResponse(filePath, true, true, false, false, explanation);
+			} else {
+				String filePath = methods.invoke(index);
+				String explanation = Strings.getExplanation(index);
+				response = new NavigatorResponse(filePath, true, true, true, true, explanation);
+			}
 		}
 		
-		indice++;	
-		return nr;
+		return response;
 	}
 	
 	
@@ -61,9 +72,6 @@ public class Navigator {
 	
 	public void toEnd(){
 		
-		
 	}
-	
-	
 		
 }

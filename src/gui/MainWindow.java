@@ -30,6 +30,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
+import process.Navigator;
+import process.NavigatorResponse;
+
 public class MainWindow {
 
 	private JFrame frame;
@@ -68,6 +71,7 @@ public class MainWindow {
 	private JButton btnNext;
 	private JButton btnToEnd;
 	
+	private Navigator navigator;
 	private JFileChooser fileChooser;
 
 	/**
@@ -372,16 +376,28 @@ public class MainWindow {
 		btnToEnd.setEnabled(toEnd);
 	}
 	
+	private void setGUIFromResponse(NavigatorResponse response) {
+		setButtonsEnabled(response.getSave(), response.getPrevious(), response.getNext(), response.getToEnd());
+		setText(response.getStepExplanation(), textExplanation);
+		if(response.getImagePath() == "") {
+			deleteImage(lblResult);
+		} else {
+			setImage(response.getImagePath(), lblResult);
+		}
+	}
+	
 	private void openFile() {
 		fileChooser = new JFileChooser();
 		int isValid = fileChooser.showOpenDialog(frame);
 		
 		if(isValid == JFileChooser.APPROVE_OPTION) {
 			String path = fileChooser.getSelectedFile().getAbsolutePath();
-			//AQUI VA LA LLAMADA AL NAVIGATOR String explanation = navigator.open(path);
+			navigator = new Navigator(path);
+			
+			NavigatorResponse response = navigator.open();
+			
 			setImage(path, lblOriginal);
-			//AQUI PONEMOS EL TEXTO A LA EXPLICACION setText(explanation, textExplanation);
-			setButtonsEnabled(false, false, true, true);
+			setGUIFromResponse(response);
 		}
 	}
 	
@@ -400,7 +416,8 @@ public class MainWindow {
 	}
 	
 	private void next() {
-		
+		NavigatorResponse response = navigator.next();
+		setGUIFromResponse(response);
 	}
 	
 	private void toEnd() {

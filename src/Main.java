@@ -13,7 +13,7 @@ public class Main {
 			
 			public void run() {
 				try {
-					MainWindow window = new MainWindow();
+					new MainWindow();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

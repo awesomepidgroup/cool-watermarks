@@ -4,7 +4,6 @@ package process;
 	Clase del Objeto envoltura "Navigator Response"
 	Usado para la comunicacion entre la UI y la clase "Navigator"
 */
-
 public class NavigatorResponse {
 	
 	private String imagePath;
@@ -14,8 +13,9 @@ public class NavigatorResponse {
 	private Boolean toEnd;
 	private String stepExplanation;
 
-	public NavigatorResponse(String imagePath, Boolean previous, Boolean next, Boolean toEnd, String stepExplanation) {
+	public NavigatorResponse(String imagePath, Boolean save, Boolean previous, Boolean next, Boolean toEnd, String stepExplanation) {
 		this.imagePath = imagePath;
+		this.save = save;
 		this.previous = previous;
 		this.next = next;
 		this.toEnd = toEnd;
@@ -28,6 +28,14 @@ public class NavigatorResponse {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+	
+	public Boolean getSave() {
+		return save;
+	}
+	
+	public void setSave(Boolean save) {
+		this.save = save;
 	}
 
 	public Boolean getPrevious() {
@@ -54,21 +62,12 @@ public class NavigatorResponse {
 		this.toEnd = toEnd;
 	}
 
-	public String stepExplanation() {
+	public String getStepExplanation() {
 		return stepExplanation;
 	}
 
 	public void setStepExplanation(String stepExplanation) {
 		this.stepExplanation = stepExplanation;
 	}
-
-	public boolean isSave() {
-		return save;
-	}
-
-	public void setSave(boolean save) {
-		this.save = save;
-	}
-	
 	
 }
