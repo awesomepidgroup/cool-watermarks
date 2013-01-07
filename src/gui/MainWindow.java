@@ -3,7 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -17,7 +16,6 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -66,8 +64,7 @@ public class MainWindow {
 		
 	private JPanel panel;
 	private JPanel panelOriginal;
-	//private JPanel panelExplanation;
-	private JScrollPane scrollPane;
+	private JScrollPane panelExplanation;
 	private JPanel panelResult;
 	
 	private JLabel lblOriginal;
@@ -149,7 +146,7 @@ public class MainWindow {
 		Dimension screenDimension = toolkit.getScreenSize();
 		frame.setLocation((screenDimension.width - frame.getWidth())/2, (screenDimension.height - frame.getHeight())/2);
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -291,12 +288,12 @@ public class MainWindow {
 		panelOriginal.add(lblOriginal);
 		
 		Color backgroundColor = toolBar.getBackground();
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 224, 330, 151);
-		scrollPane.setBorder(new TitledBorder(new LineBorder(new Color(150, 150, 150), 1, true), "Explanation of the next step", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		scrollPane.setBackground(backgroundColor);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		panel.add(scrollPane);
+		panelExplanation = new JScrollPane();
+		panelExplanation.setBounds(10, 224, 330, 151);
+		panelExplanation.setBorder(new TitledBorder(new LineBorder(new Color(150, 150, 150), 1, true), "Explanation of the next step", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelExplanation.setBackground(backgroundColor);
+		panelExplanation.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		panel.add(panelExplanation);
 		
 		Font normalFont = lblOriginal.getFont();
 		textExplanation = new JTextArea();
@@ -309,7 +306,7 @@ public class MainWindow {
 		textExplanation.setFont(normalFont);
 		DefaultCaret caret = (DefaultCaret) textExplanation.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
-		scrollPane.setViewportView(textExplanation);
+		panelExplanation.setViewportView(textExplanation);
 		
 		panelResult = new JPanel();
 		panelResult.setBounds(350, 9, 334, 400);
@@ -462,7 +459,7 @@ public class MainWindow {
 	 * Hecho con un JTextArea para ir captando la idea. Se deberia discutir
 	 * para usar mejor un JPanel, insertar algun logo, etc.
 	 */
-	private void about() {
+	/*private void about() {
 		JDialog modalDialog = new JDialog(frame, "About Cool Watermarks", ModalityType.DOCUMENT_MODAL);
 		
 		JTextArea aboutText = new JTextArea();
@@ -480,6 +477,12 @@ public class MainWindow {
 		modalDialog.setSize(300, 200);
 		modalDialog.setLocationRelativeTo(frame);
 		modalDialog.setVisible(true);
+	}*/
+	
+	private void about() {
+		AboutDialog dialog = new AboutDialog();
+		dialog.setLocationRelativeTo(frame);
+		dialog.setVisible(true);
 	}
 	
 	private void setImage(String imagePath, JLabel label) {
