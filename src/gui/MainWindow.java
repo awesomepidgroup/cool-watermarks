@@ -27,6 +27,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
@@ -34,6 +35,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.DefaultCaret;
 
 import process.Navigator;
 import process.NavigatorResponse;
@@ -64,7 +66,8 @@ public class MainWindow {
 		
 	private JPanel panel;
 	private JPanel panelOriginal;
-	private JPanel panelExplanation;
+	//private JPanel panelExplanation;
+	private JScrollPane scrollPane;
 	private JPanel panelResult;
 	
 	private JLabel lblOriginal;
@@ -120,7 +123,7 @@ public class MainWindow {
 			btnHeight = 29;
 		} else if(osName.indexOf("linux") >= 0) {
 			frameWidth = 694;
-			frameHeight = 475;
+			frameHeight = 505;
 		} else if(osName.indexOf("windows") >= 0) {
 			/*
 			 * All the parameters by default.
@@ -286,14 +289,15 @@ public class MainWindow {
 		lblOriginal.setVerticalAlignment(JLabel.CENTER);
 		lblOriginal.setHorizontalAlignment(JLabel.CENTER);
 		panelOriginal.add(lblOriginal);
-				
-		panelExplanation = new JPanel();
-		panelExplanation.setBounds(10, 224, 330, 151);
-		panelExplanation.setBorder(new TitledBorder(new LineBorder(new Color(150, 150, 150), 1, true), "Explanation of the next step", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelExplanation.setLayout(null);
-		panel.add(panelExplanation);
 		
 		Color backgroundColor = toolBar.getBackground();
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 224, 330, 151);
+		scrollPane.setBorder(new TitledBorder(new LineBorder(new Color(150, 150, 150), 1, true), "Explanation of the next step", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		scrollPane.setBackground(backgroundColor);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		panel.add(scrollPane);
+		
 		Font normalFont = lblOriginal.getFont();
 		textExplanation = new JTextArea();
 		textExplanation.setBounds(5, 15, 320, 131);
@@ -301,10 +305,11 @@ public class MainWindow {
 		textExplanation.setLineWrap(true);
 		textExplanation.setAutoscrolls(true);
 		textExplanation.setEditable(false);
-		textExplanation.setBorder(null);
 		textExplanation.setBackground(backgroundColor);
 		textExplanation.setFont(normalFont);
-		panelExplanation.add(textExplanation);
+		DefaultCaret caret = (DefaultCaret) textExplanation.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+		scrollPane.setViewportView(textExplanation);
 		
 		panelResult = new JPanel();
 		panelResult.setBounds(350, 9, 334, 400);
@@ -371,7 +376,7 @@ public class MainWindow {
 			tbbtnToEnd.setBackground(backgroundColor);
 			tbbtnToEnd.setBorder(tbbtnBorder);
 		}
-		
+	
 	}
 	
 	private void setButtonsEnabled(Boolean save, Boolean previous, Boolean next, Boolean toEnd) {
@@ -427,8 +432,12 @@ public class MainWindow {
 	}
 	
 	private void previous() {
+		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		
 		NavigatorResponse response = navigator.previous();
 		setGUIFromResponse(response);
+		
+		frame.setCursor(Cursor.getDefaultCursor());
 	}
 	
 	private void next() {
@@ -440,18 +449,21 @@ public class MainWindow {
 		frame.setCursor(Cursor.getDefaultCursor());
 	}
 	
-	private void toEnd() {		
+	private void toEnd() {
+		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		
 		NavigatorResponse response = navigator.toEnd();
 		setGUIFromResponse(response);
+		
+		frame.setCursor(Cursor.getDefaultCursor());
 	}
 	
 	/**
 	 * Hecho con un JTextArea para ir captando la idea. Se deberia discutir
 	 * para usar mejor un JPanel, insertar algun logo, etc.
 	 */
-	
 	private void about() {
-		JDialog modalDialog = new JDialog(frame, "About Cool-Watermarks", ModalityType.DOCUMENT_MODAL);
+		JDialog modalDialog = new JDialog(frame, "About Cool Watermarks", ModalityType.DOCUMENT_MODAL);
 		
 		JTextArea aboutText = new JTextArea();
 		Font normalFont = lblOriginal.getFont();
@@ -462,9 +474,9 @@ public class MainWindow {
 		aboutText.setEditable(false);
 		aboutText.setBorder(null);
 		aboutText.setFont(normalFont);
-		aboutText.setText("Texto sobre los autores");
+		aboutText.setText("Texto acerca de.");
 		
-		modalDialog.add(aboutText);
+		modalDialog.getContentPane().add(aboutText);
 		modalDialog.setSize(300, 200);
 		modalDialog.setLocationRelativeTo(frame);
 		modalDialog.setVisible(true);
@@ -532,5 +544,4 @@ public class MainWindow {
 	private void setText(String text, JTextArea textArea ) {
 		textArea.setText(text);
 	}
-	
 }
