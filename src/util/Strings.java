@@ -1,12 +1,18 @@
 package util;
 
 /**
-	Clase Strings que contiene las explicaciones
-	de los pasos realizados para la obtención de
-	la nueva imagen.
+ * Class which contains the explanations for the
+ * different steps in our program execution.
 */
 public class Strings {
 
+	/**
+	 * Static method to get the explanation by the index of the
+	 * appropriate step.
+	 * @param index
+	 * Index of the step.
+	 * @return	A string which contains the appropriate explanation.
+	 */
 	public static String getExplanation(int index) {
 		String result = "";
 

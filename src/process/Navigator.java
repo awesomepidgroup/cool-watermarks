@@ -6,15 +6,50 @@ import java.util.Map;
 
 import util.Strings;
 
+/**
+ * Class that works with all the logic of the application
+ * between the classes MainWindow and ImageMethods.
+ */
 public class Navigator {
 	
+	/**
+	 * Attribute with the value of the current step.
+	 */
 	private int index;
+	
+	/**
+	 * Attribute with the value of the last step.
+	 */
 	private int lastIndex;
+	
+	/**
+	 * Attribute which associates an index with the appropriate
+	 * NavigatorResponse object.
+	 */
 	private Map<Integer, NavigatorResponse> stepList;
+	
+	/**
+	 * Attribute which contains the original path of an image.
+	 */
 	private String originalPath;
+	
+	/**
+	 * Attribute which contains the path of the temporal folder.
+	 */
 	private String tempFolder;
+	
+	/**
+	 * Object of the class ImageMethods. It is used to invoke 
+	 * the methods of that class.
+	 */
 	private ImageMethods methods;
 	
+	/**
+	 * Default constructor.
+	 * 
+	 * @param path
+	 * The path of the original image.
+	 */
 	public Navigator(String path) {
 		this.index = 0;
 		this.lastIndex = 6;
@@ -34,6 +69,10 @@ public class Navigator {
 		this.methods = new ImageMethods(originalPath, tempFolder + File.separator);
 	}
 	
+	/**
+	 * Opens an image file.
+	 * @return A NavigatorResponse object which the appropriate result.
+	 */
 	public NavigatorResponse open(){
 		String explanation = Strings.getExplanation(index);
 		NavigatorResponse response = new NavigatorResponse("", false, false, true, true, explanation);
@@ -43,7 +82,11 @@ public class Navigator {
 		return response;
 	}
 	
-	
+	/**
+	 * Saves an image file.
+	 * @param path
+	 * The path for save the image.
+	 */
 	public void save(String path){
 		NavigatorResponse response = stepList.get(index);
 
@@ -65,6 +108,10 @@ public class Navigator {
 		}
 	}
 	
+	/**
+	 * Goes to the next step if exists.
+	 * @return A NavigatorResponse object with the appropriate result.
+	 */
 	public NavigatorResponse next(){
 		NavigatorResponse response = null;
 		index++;
@@ -88,7 +135,10 @@ public class Navigator {
 		return response;
 	}
 	
-	
+	/**
+	 * Goes to the previous step if exists.
+	 * @return A NavigatorResponse object with the appropriate result.
+	 */
 	public NavigatorResponse previous(){
 		index--;
 		NavigatorResponse response = stepList.get(index);
@@ -96,6 +146,10 @@ public class Navigator {
 		return response;
 	}
 	
+	/**
+	 * Goes to the last step.
+	 * @return A NavigatorResponse object with the appropriate result.
+	 */
 	public NavigatorResponse toEnd(){
 		NavigatorResponse response = null;
 		
