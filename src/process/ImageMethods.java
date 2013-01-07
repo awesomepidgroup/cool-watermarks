@@ -5,18 +5,67 @@ import ij.IJ;
 import ij.ImagePlus;
 import ij.plugin.ImageCalculator;
 
+/**
+ * Class which contains the calls of the used methods.
+ * We have used the ImageJ macro calls for a simple and
+ * easy implementation.
+ */
 public class ImageMethods {
 	
+	/**
+	 * Attribute which contains the original path of the image.
+	 */
 	private String originalPath;
+	
+	/**
+	 * Attribute which contains the original name of the image.
+	 */
 	private String originalName;
 	
+	/**
+	 * Attribute used to name the result image in the
+	 * first step, "remove outliers". 
+	 */
 	private String roName;
+	
+	/**
+	 * Attribute used to name the result image in the
+	 * second step, "subtract background".
+	 */
 	private String sbName;
+	
+	/**
+	 * Attribute used to name the result image in the
+	 * third step, "image calculator".
+	 */
 	private String icName;
+	
+	/**
+	 * Attribute used to name the result image in the
+	 * fourth step, "find edges".
+	 */
 	private String feName;
+	
+	/**
+	 * Attribute used to name the result image in the
+	 * fifth step, "make binary".
+	 */
 	private String mbName;
+	
+	/**
+	 * Attribute used to name the result image in the
+	 * sixth step, "Median".
+	 */
 	private String mName;
 	
+	/**
+	 * Default constructor.
+	 * 
+	 * @param originalPath
+	 * The original path of the image.
+	 * @param tempFolder
+	 * The path of the temporal folder.
+	 */
 	public ImageMethods(String originalPath, String tempFolder) {
 		this.originalPath = originalPath;
 		
@@ -31,6 +80,13 @@ public class ImageMethods {
 		this.mName = tempFolder + originalName + "6m.png";
 	}
 	
+	/**
+	 * Method used to call the appropriate ImageJ method by index.
+	 * @param index
+	 * The index that indicates the step and the ImageJ method to call.
+	 * @return
+	 * The string with the path of the image appropriate to the method.
+	 */
 	public String invoke(Integer index) {
 		switch(index) {
 		case 1:
@@ -50,6 +106,10 @@ public class ImageMethods {
 		}
 	}
 	
+	/**
+	 * Method which runs ImageJ macro, "remove outliers".
+	 * @return The string with the path of the image appropriate to the method.
+	 */
 	private String removeOutliers() {
 		ImagePlus image = IJ.openImage(originalPath);
 		
@@ -63,6 +123,10 @@ public class ImageMethods {
 		return roName;
 	}
 	
+	/**
+	 * Method which runs ImageJ macro, "subtract background"
+	 * @return The string with the path of the image appropriate to the method.
+	 */
 	private String subtractBackground() {
 		ImagePlus image = IJ.openImage(roName);
 		
@@ -76,6 +140,10 @@ public class ImageMethods {
 		return sbName;
 	}
 	
+	/**
+	 * Method which runs ImageJ macro, "image calculator"
+	 * @return The string with the path of the image appropriate to the method.
+	 */
 	private String imageCalculator() {
 		ImagePlus image1 = IJ.openImage(roName);
 		
@@ -95,6 +163,10 @@ public class ImageMethods {
 		return icName;
 	}
 	
+	/**
+	 * Method which runs ImageJ macro, "find edges".
+	 * @return The string with the path of the image appropriate to the method.
+	 */
 	private String findEdges() {
 		ImagePlus image = IJ.openImage(icName);
 		
@@ -108,6 +180,10 @@ public class ImageMethods {
 		return feName;
 	}
 	
+	/**
+	 * Method which runs ImageJ macro, "make binary".
+	 * @return The string with the path of the image appropriate to the method.
+	 */
 	private String makeBinary() {
 		ImagePlus image = IJ.openImage(feName);
 		
@@ -121,6 +197,10 @@ public class ImageMethods {
 		return mbName;
 	}
 	
+	/**
+	 * Method which runs ImageJ macro, "median".
+	 * @return The string with the path of the image appropriate to the method.
+	 */
 	private String median() {
 		ImagePlus image = IJ.openImage(mbName);
 		
