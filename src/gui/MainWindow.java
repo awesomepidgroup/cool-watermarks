@@ -459,26 +459,6 @@ public class MainWindow {
 	 * Hecho con un JTextArea para ir captando la idea. Se deberia discutir
 	 * para usar mejor un JPanel, insertar algun logo, etc.
 	 */
-	/*private void about() {
-		JDialog modalDialog = new JDialog(frame, "About Cool Watermarks", ModalityType.DOCUMENT_MODAL);
-		
-		JTextArea aboutText = new JTextArea();
-		Font normalFont = lblOriginal.getFont();
-		aboutText = new JTextArea();
-		aboutText.setWrapStyleWord(true);
-		aboutText.setLineWrap(true);
-		aboutText.setAutoscrolls(true);
-		aboutText.setEditable(false);
-		aboutText.setBorder(null);
-		aboutText.setFont(normalFont);
-		aboutText.setText("Texto acerca de.");
-		
-		modalDialog.getContentPane().add(aboutText);
-		modalDialog.setSize(300, 200);
-		modalDialog.setLocationRelativeTo(frame);
-		modalDialog.setVisible(true);
-	}*/
-	
 	private void about() {
 		AboutDialog dialog = new AboutDialog();
 		dialog.setLocationRelativeTo(frame);
