@@ -38,48 +38,94 @@ import javax.swing.text.DefaultCaret;
 import process.Navigator;
 import process.NavigatorResponse;
 
+/**
+ * Desings the GUI and manages the principal thread of
+ * the program execution.
+ */
 public class MainWindow {
 
+	/**
+	 * Main attribute of the class. Is the base of everything.
+	 */
 	private JFrame frame;
 	
+	/**
+	 * Attribute which get the dimensions of the window.
+	 */
 	private Toolkit toolkit;
 	
+	/**
+	 * Attribute used for the menu bar.
+	 */
 	private JMenuBar menuBar;
 	
+	/**
+	 * Attributes used to create menu groups.
+	 */
 	private JMenu mnFile;
 	private JMenu mnHelp;
 	
+	/**
+	 * Group of attributes used to manage the
+	 * menu items.
+	 */
 	private JMenuItem mntmOpen;
 	private JMenuItem mntmSave;
 	private JMenuItem mntmExit;
 	private JMenuItem mntmAbout;
 	
+	/**
+	 * Attribute created to manage the tool bar.
+	 */
 	private JToolBar toolBar;
 	
+	/**
+	 * Group of attributes created to manage the buttons
+	 * of the application.
+	 */
 	private JButton tbbtnOpen;
 	private JButton tbbtnSave;
 	private JButton tbbtnPrevious;
 	private JButton tbbtnNext;
 	private JButton tbbtnToEnd;
-		
+	
+	/**
+	 * Group of attributes used to manage the different
+	 * panels of our application.
+	 */
 	private JPanel panel;
 	private JPanel panelOriginal;
 	private JScrollPane panelExplanation;
 	private JPanel panelResult;
 	
+	/**
+	 * Label and text attributes.
+	 */
 	private JLabel lblOriginal;
 	private JTextArea textExplanation;
 	private JLabel lblResult;
 	
+	/**
+	 * More attribute to manage buttons.
+	 */
 	private JButton btnPrevious;
 	private JButton btnNext;
 	private JButton btnToEnd;
 	
+	/**
+	 * Attribute to control the logic of the
+	 * application.
+	 */
 	private Navigator navigator;
+	
+	/**
+	 * Attribute to search files in open and save
+	 * operations.
+	 */
 	private JFileChooser fileChooser;
 
 	/**
-	 * Create the application.
+	 * Default constructor. Create the application.
 	 */
 	public MainWindow() {
 		initialize();
@@ -376,6 +422,18 @@ public class MainWindow {
 	
 	}
 	
+	/**
+	 * Method which sets the state of the button according to his
+	 * param value.
+	 * @param save
+	 * the value for the save button.
+	 * @param previous
+	 * the value for the previous button.
+	 * @param next
+	 * the value for the next button.
+	 * @param toEnd
+	 * the value for the toEnd button.
+	 */
 	private void setButtonsEnabled(Boolean save, Boolean previous, Boolean next, Boolean toEnd) {
 		mntmSave.setEnabled(save);
 		tbbtnSave.setEnabled(save);
@@ -390,6 +448,12 @@ public class MainWindow {
 		btnToEnd.setEnabled(toEnd);
 	}
 	
+	/**
+	 * Modifies the GUI according to the NavigatorResponse object.
+	 * @param response
+	 * the object used to get the appropriate information to modify
+	 * the GUI.
+	 */
 	private void setGUIFromResponse(NavigatorResponse response) {
 		setButtonsEnabled(response.getSave(), response.getPrevious(), response.getNext(), response.getToEnd());
 		setText(response.getStepExplanation(), textExplanation);
@@ -400,6 +464,9 @@ public class MainWindow {
 		}
 	}
 	
+	/**
+	 * This method is calling when an "open" event is executed.
+	 */
 	private void open() {
 		fileChooser = new JFileChooser();
 		int isValid = fileChooser.showOpenDialog(frame);
@@ -415,6 +482,9 @@ public class MainWindow {
 		}
 	}
 	
+	/**
+	 * This method is calling when an "save" event is executed.
+	 */
 	private void save() {
 		fileChooser = new JFileChooser();
 		FileFilter pngFilter = new FileNameExtensionFilter("PNG file", "png");
@@ -428,6 +498,9 @@ public class MainWindow {
 		}
 	}
 	
+	/**
+	 * This method is calling when an "previous" event is executed.
+	 */
 	private void previous() {
 		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		
@@ -437,6 +510,9 @@ public class MainWindow {
 		frame.setCursor(Cursor.getDefaultCursor());
 	}
 	
+	/**
+	 * This method is calling when an "next" event is executed.
+	 */
 	private void next() {
 		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		
@@ -446,6 +522,9 @@ public class MainWindow {
 		frame.setCursor(Cursor.getDefaultCursor());
 	}
 	
+	/**
+	 * This method is calling when an "toEnd" event is executed.
+	 */
 	private void toEnd() {
 		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		
@@ -456,8 +535,7 @@ public class MainWindow {
 	}
 	
 	/**
-	 * Hecho con un JTextArea para ir captando la idea. Se deberia discutir
-	 * para usar mejor un JPanel, insertar algun logo, etc.
+	 * This method creates the Dialog for the About menu.
 	 */
 	private void about() {
 		AboutDialog dialog = new AboutDialog();
@@ -465,6 +543,13 @@ public class MainWindow {
 		dialog.setVisible(true);
 	}
 	
+	/**
+	 * Sets the image at the icon of the label. 
+	 * @param imagePath
+	 * the path of the image to use.
+	 * @param label
+	 * label which contains the icon to be modified.
+	 */
 	private void setImage(String imagePath, JLabel label) {
 		Image image = null;
 		try {
@@ -520,10 +605,22 @@ public class MainWindow {
 		label.setIcon(new ImageIcon(image));
 	}
 	
+	/**
+	 * Removes the image of the label.
+	 * @param label
+	 * label used to remove an image.
+	 */
 	private void deleteImage(JLabel label) {
 		label.setIcon(null);
 	}
 	
+	/**
+	 * Method used to set the text of an area.
+	 * @param text
+	 * value for the area new text.
+	 * @param textArea
+	 * area to be modified
+	 */
 	private void setText(String text, JTextArea textArea ) {
 		textArea.setText(text);
 	}

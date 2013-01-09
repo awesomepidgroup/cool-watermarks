@@ -21,14 +21,21 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.JLabel;
 
+/**
+ * Class which creates and manages the dialog
+ * about the "about" event.
+ */
 public class AboutDialog extends JDialog {
 	
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * This attribute will be the panel to show.
+	 */
 	private final JPanel contentPanel = new JPanel();
 
 	/**
-	 * Create the dialog.
+	 * Default constructor. Create the dialog.
 	 */
 	public AboutDialog() {
 		String separator = File.separator;
@@ -47,7 +54,7 @@ public class AboutDialog extends JDialog {
 		if (osName.indexOf("mac") >= 0) {
 			height = 285;
 		} else if(osName.indexOf("linux") >= 0) {
-			height  = 280;
+			height  = 300;
 		} else if(osName.indexOf("windows") >= 0) {
 			/*
 			 * All the parameters by default.

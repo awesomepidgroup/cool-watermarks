@@ -2,7 +2,9 @@ import gui.MainWindow;
 
 import java.awt.EventQueue;
 
-
+/**
+ * Main class. Executes the application.
+ */
 public class Main {
 	
 	/**
