@@ -24,6 +24,11 @@ import javax.swing.JLabel;
 /**
  * Class which creates and manages the dialog
  * about the "about" event.
+ * 
+ * @author	Camacho Sosa, José Manuel
+ * @author	Muñoz Ríos, Gabriel
+ * @author	Pozo Nuñez, José Antonio
+ * @version	1.0, 10 Jan 2013
  */
 public class AboutDialog extends JDialog {
 	
@@ -46,19 +51,18 @@ public class AboutDialog extends JDialog {
 			e.printStackTrace();
 		}
 		setIconImage(icon);
+		setResizable(false);
 		
-		String osName = System.getProperty("os.name").toLowerCase();
 		int width = 350;
 		int height = 275;
 		
+		String osName = System.getProperty("os.name").toLowerCase();
 		if (osName.indexOf("mac") >= 0) {
 			height = 285;
 		} else if(osName.indexOf("linux") >= 0) {
 			height  = 300;
 		} else if(osName.indexOf("windows") >= 0) {
-			/*
-			 * All the parameters by default.
-			 */
+			// All the parameters by default.
 		}
 		
 		setSize(width, height);
@@ -115,16 +119,15 @@ public class AboutDialog extends JDialog {
 		buttonPanel.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(120, 120, 120)));
 		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 		
-		JButton okButton = new JButton("Ok");
+		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				dispose();
 			}
 			
 		});
 		buttonPanel.add(okButton);
-				
 	}
 
 }

@@ -4,6 +4,11 @@ import java.awt.EventQueue;
 
 /**
  * Main class. Executes the application.
+ * 
+ * @author	Camacho Sosa, José Manuel
+ * @author	Muñoz Ríos, Gabriel
+ * @author	Pozo Nuñez, José Antonio
+ * @version	1.0, 10 Jan 2013
  */
 public class Main {
 	

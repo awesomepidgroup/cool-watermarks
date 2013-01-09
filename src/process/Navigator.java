@@ -9,16 +9,21 @@ import util.Strings;
 /**
  * Class that works with all the logic of the application
  * between the classes MainWindow and ImageMethods.
+ * 
+ * @author	Camacho Sosa, José Manuel
+ * @author	Muñoz Ríos, Gabriel
+ * @author	Pozo Nuñez, José Antonio
+ * @version	1.0, 10 Jan 2013
  */
 public class Navigator {
 	
 	/**
-	 * Attribute with the value of the current step.
+	 * Attribute with the index value of the current step.
 	 */
 	private int index;
 	
 	/**
-	 * Attribute with the value of the last step.
+	 * Attribute with the index value of the last step.
 	 */
 	private int lastIndex;
 	
@@ -47,8 +52,7 @@ public class Navigator {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param path
-	 * The path of the original image.
+	 * @param	path	the path of the original image
 	 */
 	public Navigator(String path) {
 		this.index = 0;
@@ -60,7 +64,7 @@ public class Navigator {
 		File folder = new File(tempFolder);
 		if(folder.exists()) {
 			for(File f : folder.listFiles()) {
-				f.delete(); //We suppose that always is a file
+				f.delete(); // We assume that it is always a file.
 			}
 			folder.delete();
 		}
@@ -71,7 +75,8 @@ public class Navigator {
 	
 	/**
 	 * Opens an image file.
-	 * @return A NavigatorResponse object which the appropriate result.
+	 * 
+	 * @return	a NavigatorResponse object which the appropriate result
 	 */
 	public NavigatorResponse open(){
 		String explanation = Strings.getExplanation(index);
@@ -84,8 +89,8 @@ public class Navigator {
 	
 	/**
 	 * Saves an image file.
-	 * @param path
-	 * The path for save the image.
+	 * 
+	 * @param	path	the path for save the image
 	 */
 	public void save(String path){
 		NavigatorResponse response = stepList.get(index);
@@ -110,7 +115,8 @@ public class Navigator {
 	
 	/**
 	 * Goes to the next step if exists.
-	 * @return A NavigatorResponse object with the appropriate result.
+	 * 
+	 * @return	a NavigatorResponse object with the appropriate result
 	 */
 	public NavigatorResponse next(){
 		NavigatorResponse response = null;
@@ -119,17 +125,14 @@ public class Navigator {
 		response = stepList.get(index);
 		
 		if(response == null) {
+			String filePath = methods.invoke(index);
+			String explanation = Strings.getExplanation(index);
 			if(index == lastIndex) {
-				String filePath = methods.invoke(index);
-				String explanation = Strings.getExplanation(index);
 				response = new NavigatorResponse(filePath, true, true, false, false, explanation);
-				stepList.put(index, response);
 			} else {
-				String filePath = methods.invoke(index);
-				String explanation = Strings.getExplanation(index);
 				response = new NavigatorResponse(filePath, true, true, true, true, explanation);
-				stepList.put(index, response);
 			}
+			stepList.put(index, response);
 		}
 		
 		return response;
@@ -137,7 +140,8 @@ public class Navigator {
 	
 	/**
 	 * Goes to the previous step if exists.
-	 * @return A NavigatorResponse object with the appropriate result.
+	 * 
+	 * @return	a NavigatorResponse object with the appropriate result
 	 */
 	public NavigatorResponse previous(){
 		index--;
@@ -148,7 +152,8 @@ public class Navigator {
 	
 	/**
 	 * Goes to the last step.
-	 * @return A NavigatorResponse object with the appropriate result.
+	 * 
+	 * @return	a NavigatorResponse object with the appropriate result
 	 */
 	public NavigatorResponse toEnd(){
 		NavigatorResponse response = null;

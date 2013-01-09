@@ -41,16 +41,21 @@ import process.NavigatorResponse;
 /**
  * Desings the GUI and manages the principal thread of
  * the program execution.
+ * 
+ * @author	Camacho Sosa, José Manuel
+ * @author	Muñoz Ríos, Gabriel
+ * @author	Pozo Nuñez, José Antonio
+ * @version	1.0, 10 Jan 2013
  */
 public class MainWindow {
 
 	/**
-	 * Main attribute of the class. Is the base of everything.
+	 * Main attribute of the class. Is the GUI base.
 	 */
 	private JFrame frame;
 	
 	/**
-	 * Attribute which get the dimensions of the window.
+	 * Attribute used to obtain the dimensions of the window.
 	 */
 	private Toolkit toolkit;
 	
@@ -60,14 +65,13 @@ public class MainWindow {
 	private JMenuBar menuBar;
 	
 	/**
-	 * Attributes used to create menu groups.
+	 * Attributes used to create menu bar groups.
 	 */
 	private JMenu mnFile;
 	private JMenu mnHelp;
 	
 	/**
-	 * Group of attributes used to manage the
-	 * menu items.
+	 * Options of the menu bar.
 	 */
 	private JMenuItem mntmOpen;
 	private JMenuItem mntmSave;
@@ -75,13 +79,12 @@ public class MainWindow {
 	private JMenuItem mntmAbout;
 	
 	/**
-	 * Attribute created to manage the tool bar.
+	 * Tool bar attribute.
 	 */
 	private JToolBar toolBar;
 	
 	/**
-	 * Group of attributes created to manage the buttons
-	 * of the application.
+	 * Attributes of the tool bar buttons.
 	 */
 	private JButton tbbtnOpen;
 	private JButton tbbtnSave;
@@ -106,7 +109,7 @@ public class MainWindow {
 	private JLabel lblResult;
 	
 	/**
-	 * More attribute to manage buttons.
+	 * Attributes of main buttons of the application.
 	 */
 	private JButton btnPrevious;
 	private JButton btnNext;
@@ -148,14 +151,20 @@ public class MainWindow {
 			e.printStackTrace();
 		}
 		
-		String osName = System.getProperty("os.name").toLowerCase();
-		
 		int frameWidth = 700;
 		int frameHeight = 500;
 		
+		/*
+		 * Variable for the vertical position of the main buttons.
+		 */
 		int btnYPos = 386;
+		
+		/*
+		 * Variable for the height of the main buttons.
+		 */
 		int btnHeight = 23;
 		
+		String osName = System.getProperty("os.name").toLowerCase();
 		if (osName.indexOf("mac") >= 0) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 			
@@ -168,9 +177,7 @@ public class MainWindow {
 			frameWidth = 694;
 			frameHeight = 505;
 		} else if(osName.indexOf("windows") >= 0) {
-			/*
-			 * All the parameters by default.
-			 */
+			// All the parameters by default.
 		}
 		
 		final String separator = File.separator;
@@ -189,6 +196,9 @@ public class MainWindow {
 		frame.setSize(frameWidth, frameHeight);
 		frame.setResizable(false);
 		
+		/*
+		 * The next couple of lines set the window in the center of the screen.
+		 */
 		Dimension screenDimension = toolkit.getScreenSize();
 		frame.setLocation((screenDimension.width - frame.getWidth())/2, (screenDimension.height - frame.getHeight())/2);
 		
@@ -399,8 +409,10 @@ public class MainWindow {
 		});
 		panel.add(btnToEnd);
 		
-		setButtonsEnabled(false, false, false, false);
-		
+		/*
+		 * This if statement sets special options for the buttons
+		 * of the tool bar created behind if the O.S. is Mac OS X.
+		 */
 		if (osName.indexOf("mac") >= 0) {
 			LineBorder tbbtnBorder = new LineBorder(backgroundColor, 4, true);
 			
@@ -419,20 +431,22 @@ public class MainWindow {
 			tbbtnToEnd.setBackground(backgroundColor);
 			tbbtnToEnd.setBorder(tbbtnBorder);
 		}
-	
+		
+		/*
+		 * This line sets the state of the buttons
+		 * for the start of application.
+		 */
+		setButtonsEnabled(false, false, false, false);
 	}
 	
 	/**
-	 * Method which sets the state of the button according to his
-	 * param value.
-	 * @param save
-	 * the value for the save button.
-	 * @param previous
-	 * the value for the previous button.
-	 * @param next
-	 * the value for the next button.
-	 * @param toEnd
-	 * the value for the toEnd button.
+	 * Method which sets the state of the buttons
+	 * according to its parameter's value.
+	 * 
+	 * @param	save		the value for the save button
+	 * @param	previous	the value for the previous button
+	 * @param	next		the value for the next button
+	 * @param	toEnd		the value for the toEnd button
 	 */
 	private void setButtonsEnabled(Boolean save, Boolean previous, Boolean next, Boolean toEnd) {
 		mntmSave.setEnabled(save);
@@ -449,10 +463,12 @@ public class MainWindow {
 	}
 	
 	/**
-	 * Modifies the GUI according to the NavigatorResponse object.
-	 * @param response
-	 * the object used to get the appropriate information to modify
-	 * the GUI.
+	 * Modifies the GUI according to the NavigatorResponse
+	 * object.
+	 * 
+	 * @param	response	the object used to get the
+	 * 						appropriate information to modify
+	 * 						the GUI
 	 */
 	private void setGUIFromResponse(NavigatorResponse response) {
 		setButtonsEnabled(response.getSave(), response.getPrevious(), response.getNext(), response.getToEnd());
@@ -465,7 +481,7 @@ public class MainWindow {
 	}
 	
 	/**
-	 * This method is calling when an "open" event is executed.
+	 * This method is called when an "open" event is executed.
 	 */
 	private void open() {
 		fileChooser = new JFileChooser();
@@ -483,7 +499,7 @@ public class MainWindow {
 	}
 	
 	/**
-	 * This method is calling when an "save" event is executed.
+	 * This method is called when an "save" event is executed.
 	 */
 	private void save() {
 		fileChooser = new JFileChooser();
@@ -499,7 +515,7 @@ public class MainWindow {
 	}
 	
 	/**
-	 * This method is calling when an "previous" event is executed.
+	 * This method is called when an "previous" event is executed.
 	 */
 	private void previous() {
 		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -511,7 +527,7 @@ public class MainWindow {
 	}
 	
 	/**
-	 * This method is calling when an "next" event is executed.
+	 * This method is called when an "next" event is executed.
 	 */
 	private void next() {
 		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -523,7 +539,7 @@ public class MainWindow {
 	}
 	
 	/**
-	 * This method is calling when an "toEnd" event is executed.
+	 * This method is called when an "toEnd" event is executed.
 	 */
 	private void toEnd() {
 		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -535,7 +551,7 @@ public class MainWindow {
 	}
 	
 	/**
-	 * This method creates the Dialog for the About menu.
+	 * This method creates the Dialog for the about menu.
 	 */
 	private void about() {
 		AboutDialog dialog = new AboutDialog();
@@ -544,11 +560,10 @@ public class MainWindow {
 	}
 	
 	/**
-	 * Sets the image at the icon of the label. 
-	 * @param imagePath
-	 * the path of the image to use.
-	 * @param label
-	 * label which contains the icon to be modified.
+	 * Sets the image at the icon of the label.
+	 * 
+	 * @param	imagePath	the path of the image
+	 * @param	label		JLabel to be modified
 	 */
 	private void setImage(String imagePath, JLabel label) {
 		Image image = null;
@@ -580,7 +595,8 @@ public class MainWindow {
 			higherLabelHeight = true;
 		}
 		
-		if(!higherLabelHeight && !higherLabelWidth) {
+		// For larger images in width and height than the JLabel.
+		if(!higherLabelWidth && !higherLabelHeight) {
 			
 			if(imageAspect < labelAspect) {
 				finalImageWidth = labelWidth;
@@ -589,14 +605,19 @@ public class MainWindow {
 				finalImageHeight = labelHeight;
 				finalImageWidth = (int) (finalImageHeight / imageAspect);
 			}
-			
-		} else if(!higherLabelHeight && higherLabelWidth) {
-			finalImageHeight = labelHeight;
-			finalImageWidth = (int) (finalImageHeight / imageAspect);
-		} else if(higherLabelHeight && !higherLabelWidth) {
+		
+		// For larger images in width than the JLabel.
+		} else if(!higherLabelWidth && higherLabelHeight) {
 			finalImageWidth = labelWidth;
 			finalImageHeight = (int) (finalImageWidth * imageAspect);
-		} else if(higherLabelHeight && higherLabelWidth) {
+			
+		// For larger images in height than the JLabel.
+		} else if(higherLabelWidth && !higherLabelHeight) {
+			finalImageHeight = labelHeight;
+			finalImageWidth = (int) (finalImageHeight / imageAspect);
+		
+		// For smaller images in width and height than the JLabel.
+		} else if(higherLabelWidth && higherLabelHeight) {
 			finalImageWidth = imageWidth;
 			finalImageHeight = imageHeight;
 		}
@@ -607,8 +628,8 @@ public class MainWindow {
 	
 	/**
 	 * Removes the image of the label.
-	 * @param label
-	 * label used to remove an image.
+	 * 
+	 * @param	label	the JLabel for remove its image
 	 */
 	private void deleteImage(JLabel label) {
 		label.setIcon(null);
@@ -616,12 +637,12 @@ public class MainWindow {
 	
 	/**
 	 * Method used to set the text of an area.
-	 * @param text
-	 * value for the area new text.
-	 * @param textArea
-	 * area to be modified
+	 * 
+	 * @param	text		value for the JTextArea
+	 * @param	textArea	JTextArea to be modified
 	 */
 	private void setText(String text, JTextArea textArea ) {
 		textArea.setText(text);
 	}
+	
 }

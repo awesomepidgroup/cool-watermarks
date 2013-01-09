@@ -3,15 +3,21 @@ package util;
 /**
  * Class which contains the explanations for the
  * different steps in our program execution.
-*/
+ * 
+ * @author	Camacho Sosa, José Manuel
+ * @author	Muñoz Ríos, Gabriel
+ * @author	Pozo Nuñez, José Antonio
+ * @version	1.0, 10 Jan 2013
+ */
 public class Strings {
 
 	/**
-	 * Static method to get the explanation by the index of the
-	 * appropriate step.
-	 * @param index
-	 * Index of the step.
-	 * @return	A string which contains the appropriate explanation.
+	 * Static method to get the explanation by the
+	 * index of the step.
+	 * 
+	 * @param	index	index of the step
+	 * @return			a string which contains the
+	 * 					appropriate explanation
 	 */
 	public static String getExplanation(int index) {
 		String result = "";

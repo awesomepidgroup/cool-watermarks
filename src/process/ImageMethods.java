@@ -10,6 +10,11 @@ import ij.plugin.ImageCalculator;
  * Class which contains the calls of the used methods.
  * We have used the ImageJ macro calls for a simple and
  * easy implementation.
+ * 
+ * @author	Camacho Sosa, José Manuel
+ * @author	Muñoz Ríos, Gabriel
+ * @author	Pozo Nuñez, José Antonio
+ * @version	1.0, 10 Jan 2013
  */
 public class ImageMethods {
 	
@@ -62,10 +67,8 @@ public class ImageMethods {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param originalPath
-	 * The original path of the image.
-	 * @param tempFolder
-	 * The path of the temporal folder.
+	 * @param	originalPath	the original path of the image
+	 * @param	tempFolder		the path of the temporal folder
 	 */
 	public ImageMethods(String originalPath, String tempFolder) {
 		this.originalPath = originalPath;
@@ -83,10 +86,9 @@ public class ImageMethods {
 	
 	/**
 	 * Method used to call the appropriate ImageJ method by index.
-	 * @param index
-	 * The index that indicates the step and the ImageJ method to call.
-	 * @return
-	 * The string with the path of the image appropriate to the method.
+	 * 
+	 * @param	index	the index that indicates the step and the ImageJ method to call
+	 * @return			the string with the path of the appropriate image of the method
 	 */
 	public String invoke(Integer index) {
 		switch(index) {
@@ -109,7 +111,8 @@ public class ImageMethods {
 	
 	/**
 	 * Method which runs ImageJ macro, "remove outliers".
-	 * @return The string with the path of the image appropriate to the method.
+	 * 
+	 * @return	the string with the path of the image appropriate to the method
 	 */
 	private String removeOutliers() {
 		ImagePlus image = IJ.openImage(originalPath);
@@ -125,8 +128,9 @@ public class ImageMethods {
 	}
 	
 	/**
-	 * Method which runs ImageJ macro, "subtract background"
-	 * @return The string with the path of the image appropriate to the method.
+	 * Method which runs ImageJ macro, "subtract background".
+	 * 
+	 * @return the string with the path of the image appropriate to the method
 	 */
 	private String subtractBackground() {
 		ImagePlus image = IJ.openImage(roName);
@@ -142,8 +146,9 @@ public class ImageMethods {
 	}
 	
 	/**
-	 * Method which runs ImageJ macro, "image calculator"
-	 * @return The string with the path of the image appropriate to the method.
+	 * Method which runs ImageJ macro, "image calculator".
+	 * 
+	 * @return	the string with the path of the image appropriate to the method
 	 */
 	private String imageCalculator() {
 		ImagePlus image1 = IJ.openImage(roName);
@@ -166,7 +171,8 @@ public class ImageMethods {
 	
 	/**
 	 * Method which runs ImageJ macro, "find edges".
-	 * @return The string with the path of the image appropriate to the method.
+	 * 
+	 * @return the string with the path of the image appropriate to the method
 	 */
 	private String findEdges() {
 		ImagePlus image = IJ.openImage(icName);
@@ -183,7 +189,8 @@ public class ImageMethods {
 	
 	/**
 	 * Method which runs ImageJ macro, "make binary".
-	 * @return The string with the path of the image appropriate to the method.
+	 * 
+	 * @return	the string with the path of the image appropriate to the method
 	 */
 	private String makeBinary() {
 		ImagePlus image = IJ.openImage(feName);
@@ -200,7 +207,8 @@ public class ImageMethods {
 	
 	/**
 	 * Method which runs ImageJ macro, "median".
-	 * @return The string with the path of the image appropriate to the method.
+	 * 
+	 * @return	the string with the path of the image appropriate to the method
 	 */
 	private String median() {
 		ImagePlus image = IJ.openImage(mbName);
