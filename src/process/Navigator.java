@@ -64,7 +64,8 @@ public class Navigator {
 		File folder = new File(tempFolder);
 		if(folder.exists()) {
 			for(File f : folder.listFiles()) {
-				f.delete(); // We assume that it is always a file.
+				// We assume that it is always a file.
+				f.delete();
 			}
 			folder.delete();
 		}

@@ -2,6 +2,8 @@ package process;
 
 import java.io.File;
 
+import util.Print;
+
 import ij.IJ;
 import ij.ImagePlus;
 import ij.plugin.ImageCalculator;
@@ -115,6 +117,8 @@ public class ImageMethods {
 	 * @return	the string with the path of the image appropriate to the method
 	 */
 	private String removeOutliers() {
+		Print.log("Applying Remove Outliers");
+		
 		ImagePlus image = IJ.openImage(originalPath);
 		
 		String command = "Remove Outliers...";
@@ -133,6 +137,7 @@ public class ImageMethods {
 	 * @return the string with the path of the image appropriate to the method
 	 */
 	private String subtractBackground() {
+		Print.log("Applying Subtract Background");
 		ImagePlus image = IJ.openImage(roName);
 		
 		String command = "Subtract Background...";
@@ -151,6 +156,7 @@ public class ImageMethods {
 	 * @return	the string with the path of the image appropriate to the method
 	 */
 	private String imageCalculator() {
+		Print.log("Applying Image Calculator");
 		ImagePlus image1 = IJ.openImage(roName);
 		
 		ImagePlus image2 = IJ.openImage(sbName);
@@ -175,6 +181,7 @@ public class ImageMethods {
 	 * @return the string with the path of the image appropriate to the method
 	 */
 	private String findEdges() {
+		Print.log("Applying Find Edges");
 		ImagePlus image = IJ.openImage(icName);
 		
 		String command = "Find Edges";
@@ -193,6 +200,7 @@ public class ImageMethods {
 	 * @return	the string with the path of the image appropriate to the method
 	 */
 	private String makeBinary() {
+		Print.log("Applying Make Binary");
 		ImagePlus image = IJ.openImage(feName);
 		
 		String command = "Make Binary";
@@ -211,6 +219,7 @@ public class ImageMethods {
 	 * @return	the string with the path of the image appropriate to the method
 	 */
 	private String median() {
+		Print.log("Applying Median Filter");
 		ImagePlus image = IJ.openImage(mbName);
 		
 		String command = "Median...";

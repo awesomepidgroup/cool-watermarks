@@ -37,6 +37,7 @@ import javax.swing.text.DefaultCaret;
 
 import process.Navigator;
 import process.NavigatorResponse;
+import util.Print;
 
 /**
  * Desings the GUI and manages the principal thread of
@@ -139,6 +140,8 @@ public class MainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		Print.log("Initiating application.");
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
@@ -236,6 +239,7 @@ public class MainWindow {
 		mntmExit.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				Print.log("Closing the application from the menu bar.");
 				frame.dispose();
 			}
 		});
@@ -437,6 +441,8 @@ public class MainWindow {
 		 * for the start of application.
 		 */
 		setButtonsEnabled(false, false, false, false);
+		
+		Print.log("Finished building the interface.");
 	}
 	
 	/**
@@ -488,13 +494,15 @@ public class MainWindow {
 		int isValid = fileChooser.showOpenDialog(frame);
 		
 		if(isValid == JFileChooser.APPROVE_OPTION) {
-			String path = fileChooser.getSelectedFile().getAbsolutePath();
-			navigator = new Navigator(path);
+			String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+			navigator = new Navigator(filePath);
 			
 			NavigatorResponse response = navigator.open();
 			
-			setImage(path, lblOriginal);
+			setImage(filePath, lblOriginal);
 			setGUIFromResponse(response);
+			
+			Print.log("Opening this file: " + filePath);
 		}
 	}
 	
@@ -509,8 +517,11 @@ public class MainWindow {
 		int isValid = fileChooser.showSaveDialog(frame);
 		
 		if(isValid == JFileChooser.APPROVE_OPTION) {
-			String path = fileChooser.getSelectedFile().getAbsolutePath() + ".png"; //CUIDADO CON ESTO
-			navigator.save(path);
+			// Caution! It always adds the ".png" extension.
+			String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".png";
+			navigator.save(filePath);
+			
+			Print.log("Saving in this file: " + filePath);
 		}
 	}
 	
@@ -518,6 +529,7 @@ public class MainWindow {
 	 * This method is called when an "previous" event is executed.
 	 */
 	private void previous() {
+		Print.log("Pressed the Previous button.");
 		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		
 		NavigatorResponse response = navigator.previous();
@@ -530,6 +542,7 @@ public class MainWindow {
 	 * This method is called when an "next" event is executed.
 	 */
 	private void next() {
+		Print.log("Pressed the Next button.");
 		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		
 		NavigatorResponse response = navigator.next();
@@ -542,6 +555,7 @@ public class MainWindow {
 	 * This method is called when an "toEnd" event is executed.
 	 */
 	private void toEnd() {
+		Print.log("Pressed the To end button.");
 		frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		
 		NavigatorResponse response = navigator.toEnd();

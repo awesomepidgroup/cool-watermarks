@@ -21,6 +21,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.JLabel;
 
+import util.Print;
+
 /**
  * Class which creates and manages the dialog
  * about the "about" event.
@@ -43,6 +45,8 @@ public class AboutDialog extends JDialog {
 	 * Default constructor. Create the dialog.
 	 */
 	public AboutDialog() {
+		Print.log("Initiating the about dialog.");
+		
 		String separator = File.separator;
 		Image icon = null;
 		try {
@@ -123,6 +127,7 @@ public class AboutDialog extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				Print.log("Closing the about dialog from the OK button.");
 				dispose();
 			}
 			
