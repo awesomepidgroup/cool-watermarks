@@ -55,10 +55,11 @@ public class AboutDialog extends JDialog {
 			e.printStackTrace();
 		}
 		setIconImage(icon);
+		setTitle("About Cool Watermarks");
 		setResizable(false);
 		
 		int width = 350;
-		int height = 275;
+		int height = 288;
 		
 		String osName = System.getProperty("os.name").toLowerCase();
 		if (osName.indexOf("mac") >= 0) {
@@ -102,13 +103,13 @@ public class AboutDialog extends JDialog {
 		labelTextJosema.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPanel.add(labelTextJosema);
 		
-		JLabel labelTextAntonio = new JLabel("Pozo Núñez, José Atonio - @CurroAntonio86");
-		labelTextAntonio.setAlignmentX(Component.CENTER_ALIGNMENT);
-		contentPanel.add(labelTextAntonio);
-		
 		JLabel labelTextGabi = new JLabel("Muñoz Ríos, Gabriel - @Gabi_mu_ri");
 		labelTextGabi.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPanel.add(labelTextGabi);
+		
+		JLabel labelTextAntonio = new JLabel("Pozo Núñez, José Atonio - @CurroAntonio86");
+		labelTextAntonio.setAlignmentX(Component.CENTER_ALIGNMENT);
+		contentPanel.add(labelTextAntonio);
 		
 		JLabel labelTextBlank2 = new JLabel(" ");
 		labelTextBlank2.setAlignmentX(Component.CENTER_ALIGNMENT);
