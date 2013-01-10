@@ -31,11 +31,14 @@ public class Strings {
 		} else if(index == 3) {
 			result = "Texto para paso 4";
 		} else if(index == 4) {
-			result = "Texto para paso 5";
+			result = "The next step is a simple binarization. The only strange aspect is that " +
+						"the choice of the threshold is automatic. Uses an algorithm that " +
+						"selects a threshold associated with the composite average of the " +
+						"pixel values​​.";
 		} else if(index == 5){
 			result = "Texto para paso 6";
 		} else {
-			result = "Este es el resultado final";
+			result = "This is the final result.";
 		}
 		
 		return result;
